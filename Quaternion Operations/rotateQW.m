@@ -1,4 +1,4 @@
-function [q] = rotateQuat(q, w, dt)
+function [q] = rotateQW(q, w, dt)
     Fx = w(1)*dt;
     Fy = w(2)*dt;
     Fz = w(3)*dt;
@@ -10,6 +10,6 @@ function [q] = rotateQuat(q, w, dt)
     else
         Nd=single([ 1, 0, 0, 0]);
     end
-    q = quat_mult( q, Nd );
+    q = multQQ( q, Nd );
 end
 

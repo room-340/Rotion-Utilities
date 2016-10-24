@@ -1,4 +1,4 @@
-function [q] = conjq(q)
+function [q] = conjQ(q)
 %обратный кватернион
     q(2)=-q(2);
     q(3)=-q(3);

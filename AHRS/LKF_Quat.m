@@ -83,8 +83,8 @@ function [quat, angles, dw, P, Q, R, wPrime] = LKF_Quat(acc, mag, anr,...
     % Estimated vector values 
 %     accBasicPrime = quatrotate_eml( qPrime, accBasic);
 %     magBasicPrime = quatrotate_eml( qPrime, magBasic);
-    accBasicPrime = quatrotate( qPrime, accBasic);
-    magBasicPrime = quatrotate( qPrime, magBasic);
+    accBasicPrime = rotateVQ( accBasic, qPrime);
+    magBasicPrime = rotateVQ( magBasic, qPrime);
 %     qPrimeConj = [qPrime(1) -qPrime(2) qPrime(3) qPrime(4)];
 %     qTemp = [-accBasic*qPrimeConj(2:4)' ...
 %         +qPrimeConj(1)*accBasic+cross(qPrimeConj(2:4),accBasic)];
@@ -135,7 +135,7 @@ function [quat, angles, dw, P, Q, R, wPrime] = LKF_Quat(acc, mag, anr,...
         qe  = single([X(1)/2 X(2)/2 X(3)/2]);
         qqe = [sqrt(single(1) - (qe(1)^2 + qe(2)^2 + qe(3)^2)),...
             qe(1), qe(2), qe(3)];
-        quat = quat_mult( qPrime, qqe );
+        quat = multQQ( qPrime, qqe );
 %         quat = quat./norm(quat);
 %         quat = [qqe(1)*qPrime(1)-qqe(2:4)*qPrime(2:4)' ...
 %             qqe(1)*qPrime(2:4)+qPrime(1)*qqe(2:4)+cross(qPrime(2:4),qqe(2:4))];

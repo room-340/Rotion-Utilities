@@ -42,8 +42,8 @@ function quatAnimation(quaternion)
         pause(0.01);
         delete(pic);
 %         delete(ptr);
-        vector = quatrotate(quaternion(k,:), baseVector);
-        pVec = quatrotate(quaternion(k,:), pointerVector);
+        vector = rotateVQ(baseVector, quaternion(k,:));
+        pVec = rotateVQ(pointerVector, quaternion(k,:));
         pVec = vector + pVec;
         pic = line([basePosition(1) vector(1)],[basePosition(2) vector(2)],[basePosition(3) vector(3)], 'LineWidth', 2, 'Color', 'k');
 %         ptr = line([vector(1) pVec(1)],[vector(2) pVec(2)],[vector(3) pVec(3)], 'LineWidth', 2, 'Color', 'k');

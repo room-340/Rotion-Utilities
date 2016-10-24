@@ -1,4 +1,4 @@
-function [vector] = rotate(vector,orientation)
+function [vector] = rotateVQA(vector,orientation)
 %Поворот вектора, при помощи кватерниона или углов в последовательности xyz
 
     if (length(orientation)==3)
@@ -6,7 +6,7 @@ function [vector] = rotate(vector,orientation)
         vector = DCM*vector'; 
     end
     if (length(orientation)==4)
-        quatrotate(orientation,vector);
+        rotateVQ(vector,orientation);
     end
 
 end
