@@ -2,8 +2,8 @@ function [X, P, Q, R, debug] = LKF_Euler(acc, mag, anr,...
     accl_coefs, magn_coefs, gyro_coefs,...
     dT,... 
     X, P, Q, R, accThreshold, magThreshold, magDeclination)
-%   Основной алгоритм
-%   На вход идут текущие измерения и матрицы с предыдущей итерации
+%   пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+%   пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 %% Data correction
     g = 9.81; % m/s^2
     debug = [0 0 0];
@@ -90,9 +90,9 @@ function [X, P, Q, R, debug] = LKF_Euler(acc, mag, anr,...
         H(1,1) = 1; H(2, 2) = 1; H(3, 3) = 1;
 %         R(1,1) = 2e0; R(2,2) = 2e0; R(3,3) = 2e0;
         
-        rollS = -atan2(aCal(2),sqrt(aCal(1)^2 + aCal(3)^2)); % крен
-        pitchS = atan2(aCal(1),sqrt(aCal(2)^2 + aCal(3)^2)); % тангаж
-        Moh = angle2dcm_eml(0, pitchS, rollS); % object -> horizon
+        rollS = -atan2(aCal(2),sqrt(aCal(1)^2 + aCal(3)^2)); % пїЅпїЅпїЅпїЅ
+        pitchS = atan2(aCal(1),sqrt(aCal(2)^2 + aCal(3)^2)); % пїЅпїЅпїЅпїЅпїЅпїЅ
+        Moh = angles2dcm(rollS, pitchS, 0); % object -> horizon
         
         % Fill up Z vector for no-correction situations
         currentOrienthor = Moh*X(1:3);
@@ -105,9 +105,9 @@ function [X, P, Q, R, debug] = LKF_Euler(acc, mag, anr,...
         if (threshold_a < accThreshold)
 %             R(1,1) = 2e-2; R(2,2) = 2e-2; R(3,3) = 2e-2;
             % Note that corrected roll angle has different sign (opposite to rollS)
-            roll = atan2(aCal(2),sqrt(aCal(1)^2 + aCal(3)^2)); % крен
+            roll = atan2(aCal(2),sqrt(aCal(1)^2 + aCal(3)^2)); % пїЅпїЅпїЅпїЅ
             % ----------------------------------------------------- CRUTCH
-            pitch = -atan2(aCal(1),sqrt(aCal(2)^2 + aCal(3)^2)); % тангаж
+            pitch = -atan2(aCal(1),sqrt(aCal(2)^2 + aCal(3)^2)); % пїЅпїЅпїЅпїЅпїЅпїЅ
             debug(1) = 1;
         end
         % If magnetic field is stable - correct yaw

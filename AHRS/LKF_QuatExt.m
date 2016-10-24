@@ -95,7 +95,7 @@ function [X, P, Q, R, debug, quat] = LKF_QuatExt(acc, mag, anr,...
       
     wPrime = X(4:6); % yup, its already changed!
     % Rotate quat by qe
-    quatPrime  = mrotate_eml(quat, wPrime, dT);
+    quatPrime  = rotateQW(quat, wPrime, dT);
       
     %% Measurement update
     % Initial matrix values
@@ -104,8 +104,8 @@ function [X, P, Q, R, debug, quat] = LKF_QuatExt(acc, mag, anr,...
     H = zeros(9,9,'single');
     
     % Estimated vector values 
-    accBasicPrime = quatrotate( quatPrime, accBasic);
-    magBasicPrime = quatrotate( quatPrime, magBasic);
+    accBasicPrime = rotateVQ(accBasic, quatPrime);
+    magBasicPrime = rotateVQ(magBasic, quatPrime);
     
     H(7:9,4:6) = eye(3, 'single');
     % Might consider deep correction mode

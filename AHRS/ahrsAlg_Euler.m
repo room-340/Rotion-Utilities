@@ -1,6 +1,6 @@
 function [ang_, anr_, bias_] = ahrsAlg_Euler(acc, magNorm, anr, accCoefs, magCoefs, gyrCoefs)
-    % Основная функция
-    % На вход податся ВСЕ данные (полные массивы)
+    % пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    % пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
     initP = [1e-1 1e-1 1e-1 1e-3 1e-3 1e-3 1e-4 1e-4 1e-4]; % euler
     initQ = [1e-6 1e-6 1e-6 1e-3 1e-3 1e-3 1e-5 1e-5 1e-5]; % euler
     initR = [2e-2 2e-2 2e-2 1e-2 1e-2 1e-2];                % euler
@@ -96,9 +96,9 @@ function [ang_, anr_, bias_] = ahrsAlg_Euler(acc, magNorm, anr, accCoefs, magCoe
         B0 = [accl_coefs(10);accl_coefs(11);accl_coefs(12)]; % 3x1
         accCal = ((eye(3,'single')-B)*(accl'-B0))';
         
-        roll = -atan2(accCal(2),sqrt(accCal(1)^2 + accCal(3)^2)); % крен
-        pitch = atan2(accCal(1),sqrt(accCal(2)^2 + accCal(3)^2)); % тангаж
-        Moh = angle2dcm_eml(0, pitch, roll); % object -> horizon
+        roll = -atan2(accCal(2),sqrt(accCal(1)^2 + accCal(3)^2)); % пїЅпїЅпїЅпїЅ
+        pitch = atan2(accCal(1),sqrt(accCal(2)^2 + accCal(3)^2)); % пїЅпїЅпїЅпїЅпїЅпїЅ
+        Moh = angles2dcm(roll, pitch, 0); % object -> horizon
         magHeading = Moh*magCal';
         yaw = -atan2(magHeading(2),magHeading(1));
         magDec = -yaw;

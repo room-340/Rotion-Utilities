@@ -48,7 +48,7 @@ function [quat, angles, dw, P, Q, R, wPrime] = LKF_Quat(acc, mag, anr,...
 %         wPrime = [0 0 0];
 %     end;
     %% Calculate quaternion
-    qPrime  = mrotate_eml(quat, wPrime, dT);
+    qPrime  = rotateQW(quat, wPrime, dT);
 %     qPrime  = quatrotate_eml(quat, wPrime, dT);
 %     qPrime = qPrime./norm(qPrime);
 %     Fx = wPrime(1)*dT;
@@ -143,7 +143,7 @@ function [quat, angles, dw, P, Q, R, wPrime] = LKF_Quat(acc, mag, anr,...
         %% Angles
         % from Wiki
 %         angles = [0 0 0];
-        [angles(1), angles(2), angles(3)] = quat2angle_eml(quat);
+        [angles] = quat2angles(quat);
 %         %Normalize quaternion 
 %         qin = quat./(sqrt(sum(quat.^2,2))* ones(1,4));
 % 
